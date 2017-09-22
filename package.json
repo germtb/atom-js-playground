@@ -1,20 +1,16 @@
 {
 	"name": "react-playground",
-	"main": "./dist/bundle",
+	"main": "./lib/react-playground",
 	"version": "0.1.6",
-	"activationEvents": [
-		"react-playground:toggle"
-	],
+	"activationEvents": ["react-playground:toggle"],
 	"description": "Play in react",
 	"scripts": {
 		"build": "webpack",
 		"watch": "webpack --watch",
-		"test": "mocha --reporter progress --compilers js:babel-core/register --recursive 'lib/**/*.test.js'"
+		"test":
+			"mocha --reporter progress --compilers js:babel-core/register --recursive 'lib/**/*.test.js'"
 	},
-	"keywords": [
-		"react",
-		"instant-feedback"
-	],
+	"keywords": ["react", "instant-feedback"],
 	"repository": "https://github.com/germtb/atom-react-playground",
 	"license": "MIT",
 	"engines": {
@@ -34,12 +30,16 @@
 		"atom": "~1.0.0",
 		"babel-cli": "^6.26.0",
 		"babel-core": "^6.26.0",
+		"babel-eslint": "^8.0.0",
 		"babel-loader": "^7.1.2",
 		"babel-preset-env": "^1.6.0",
 		"babel-preset-es2015": "^6.24.1",
 		"babel-preset-react": "^6.24.1",
 		"babel-preset-stage-2": "^6.24.1",
 		"chai": "^4.1.2",
+		"eslint": "^4.7.2",
+		"eslint-plugin-mocha": "^4.11.0",
+		"eslint-plugin-react": "^7.3.0",
 		"mocha": "^3.5.3",
 		"webpack": "^3.5.5"
 	}
