@@ -24567,7 +24567,7 @@ var _reactHighlight2 = _interopRequireDefault(_reactHighlight);
 
 var _parse = __webpack_require__(406);
 
-var _astEval = __webpack_require__(408);
+var _aval = __webpack_require__(408);
 
 var _selectors = __webpack_require__(96);
 
@@ -24607,7 +24607,7 @@ var ReactPlayground = function (_React$Component) {
 				'div',
 				{ className: 'react_playground_container' },
 				ast && ast.program.body.map(function (node) {
-					var result = (0, _astEval.astEval)(node, scope);
+					var result = (0, _aval.aval)(node, scope);
 					var renderer = nodeRenderer[node.type];
 					return (
 						// <button className="react_playground_container__node">
@@ -49677,11 +49677,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-exports.astEval = astEval;
+exports.aval = aval;
 var createArguments = function createArguments(paramsDefinition, params, scope) {
 	return paramsDefinition.reduce(function (acc, param, index) {
-		var result = astEval(params[index], scope);
-		acc[param.name] = params[index] ? astEval(params[index], scope) : undefined;
+		var result = aval(params[index], scope);
+		acc[param.name] = params[index] ? aval(params[index], scope) : undefined;
 		return acc;
 	}, {});
 };
@@ -49693,7 +49693,7 @@ var createArrowFunction = function createArrowFunction(node, scope) {
 		call: function call(params, scope) {
 			var hydratedParams = createArguments(node.params, params, scope);
 			var functionScope = Object.assign({}, scope, hydratedParams);
-			return astEval(body, functionScope);
+			return aval(body, functionScope);
 		}
 	};
 };
@@ -49705,7 +49705,7 @@ var createFunctionExpression = function createFunctionExpression(node, scope) {
 		call: function call(params, scope) {
 			var hydratedParams = createArguments(node.params, params, scope);
 			var functionScope = Object.assign({}, scope, hydratedParams);
-			return astEval(body, functionScope);
+			return aval(body, functionScope);
 		}
 	};
 };
@@ -49717,7 +49717,7 @@ var createFunction = function createFunction(node, scope) {
 		call: function call(params, scope) {
 			var hydratedParams = createArguments(node.params, params, scope);
 			var functionScope = Object.assign({}, scope, hydratedParams);
-			return astEval(body, functionScope);
+			return aval(body, functionScope);
 		}
 	};
 };
@@ -49726,10 +49726,10 @@ var visitors = {
 	VariableDeclaration: function VariableDeclaration(node, scope) {
 		var declarations = node.declarations;
 		var declaration = declarations[0];
-		scope[declaration.id.name] = astEval(declaration, scope);
+		scope[declaration.id.name] = aval(declaration, scope);
 	},
 	VariableDeclarator: function VariableDeclarator(node, scope) {
-		return node.init ? astEval(node.init, scope) : undefined;
+		return node.init ? aval(node.init, scope) : undefined;
 	},
 	Program: function Program(node, scope) {
 		var _iteratorNormalCompletion = true;
@@ -49740,7 +49740,7 @@ var visitors = {
 			for (var _iterator = node.body[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
 				var _node = _step.value;
 
-				astEval(_node, scope);
+				aval(_node, scope);
 			}
 		} catch (err) {
 			_didIteratorError = true;
@@ -49758,10 +49758,10 @@ var visitors = {
 		}
 	},
 	IfStatement: function IfStatement(node, scope) {
-		if (astEval(node.test, scope)) {
-			astEval(node.consequent, scope);
+		if (aval(node.test, scope)) {
+			aval(node.consequent, scope);
 		} else if (node.alternate) {
-			astEval(node.alternate, scope);
+			aval(node.alternate, scope);
 		}
 	},
 	CallExpression: function CallExpression(node, scope) {
@@ -49784,9 +49784,9 @@ var visitors = {
 				var bodyNode = _step2.value;
 
 				if (bodyNode.type === 'ReturnStatement') {
-					return astEval(bodyNode, scope);
+					return aval(bodyNode, scope);
 				} else {
-					astEval(bodyNode, scope);
+					aval(bodyNode, scope);
 				}
 			}
 		} catch (err) {
@@ -49822,7 +49822,7 @@ var visitors = {
 		throw 'UpdateExpression ' + operator + ' not implemented';
 	},
 	ReturnStatement: function ReturnStatement(node, scope) {
-		return astEval(node.argument, scope);
+		return aval(node.argument, scope);
 	},
 	NumericLiteral: function NumericLiteral(node, scope) {
 		return node.value;
@@ -49832,14 +49832,14 @@ var visitors = {
 	},
 	ArrayExpression: function ArrayExpression(node, scope) {
 		return node.elements.map(function (element) {
-			return astEval(element, scope);
+			return aval(element, scope);
 		});
 	},
 	ObjectExpression: function ObjectExpression(node, scope) {
 		return node.properties.reduce(function (acc, property) {
-			var _astEval = astEval(property, scope),
-			    key = _astEval.key,
-			    value = _astEval.value;
+			var _aval = aval(property, scope),
+			    key = _aval.key,
+			    value = _aval.value;
 
 			acc[key] = value;
 			return acc;
@@ -49847,8 +49847,8 @@ var visitors = {
 	},
 	ObjectProperty: function ObjectProperty(node, scope) {
 		return {
-			key: node.computed ? astEval(node.key, scope) : node.key.name,
-			value: astEval(node.value, scope)
+			key: node.computed ? aval(node.key, scope) : node.key.name,
+			value: aval(node.value, scope)
 		};
 	},
 	Identifier: function Identifier(node, scope) {
@@ -49866,37 +49866,37 @@ var visitors = {
 	BinaryExpression: function BinaryExpression(node, scope) {
 		var operator = node.operator;
 		if (operator === '+') {
-			return astEval(node.left, scope) + astEval(node.right, scope);
+			return aval(node.left, scope) + aval(node.right, scope);
 		} else if (operator === '-') {
-			return astEval(node.left, scope) - astEval(node.right, scope);
+			return aval(node.left, scope) - aval(node.right, scope);
 		} else if (operator === '*') {
-			return astEval(node.left, scope) * astEval(node.right, scope);
+			return aval(node.left, scope) * aval(node.right, scope);
 		} else if (operator === '/') {
-			return astEval(node.left, scope) / astEval(node.right, scope);
+			return aval(node.left, scope) / aval(node.right, scope);
 		} else if (operator === '%') {
-			return astEval(node.left, scope) % astEval(node.right, scope);
+			return aval(node.left, scope) % aval(node.right, scope);
 		} else if (operator === '==') {
-			return astEval(node.left, scope) == astEval(node.right, scope);
+			return aval(node.left, scope) == aval(node.right, scope);
 		} else if (operator === '!=') {
-			return astEval(node.left, scope) != astEval(node.right, scope);
+			return aval(node.left, scope) != aval(node.right, scope);
 		} else if (operator === '===') {
-			return astEval(node.left, scope) === astEval(node.right, scope);
+			return aval(node.left, scope) === aval(node.right, scope);
 		} else if (operator === '!==') {
-			return astEval(node.left, scope) !== astEval(node.right, scope);
+			return aval(node.left, scope) !== aval(node.right, scope);
 		} else if (operator === '>') {
-			return astEval(node.left, scope) > astEval(node.right, scope);
+			return aval(node.left, scope) > aval(node.right, scope);
 		} else if (operator === '>=') {
-			return astEval(node.left, scope) >= astEval(node.right, scope);
+			return aval(node.left, scope) >= aval(node.right, scope);
 		} else if (operator === '<') {
-			return astEval(node.left, scope) < astEval(node.right, scope);
+			return aval(node.left, scope) < aval(node.right, scope);
 		} else if (operator === '<=') {
-			return astEval(node.left, scope) <= astEval(node.right, scope);
+			return aval(node.left, scope) <= aval(node.right, scope);
 		}
 
 		throw 'BinaryExpression not implemented';
 	},
 	ConditionalExpression: function ConditionalExpression(node, scope) {
-		return astEval(node.test, scope) ? astEval(node.consequent, scope) : astEval(node.alternate, scope);
+		return aval(node.test, scope) ? aval(node.consequent, scope) : aval(node.alternate, scope);
 	},
 	BooleanLiteral: function BooleanLiteral(node, scope) {
 		return node.value;
@@ -49905,9 +49905,9 @@ var visitors = {
 		var operator = node.operator;
 
 		if (operator === '!') {
-			return !astEval(node.argument, scope);
+			return !aval(node.argument, scope);
 		} else if (operator === 'typeof') {
-			return _typeof(astEval(node.argument, scope));
+			return _typeof(aval(node.argument, scope));
 		}
 
 		throw 'UnaryExpression ' + operator + ' not implemented';
@@ -49916,35 +49916,35 @@ var visitors = {
 		var operator = node.operator;
 
 		if (operator === '&&') {
-			return astEval(node.left, scope) && astEval(node.right);
+			return aval(node.left, scope) && aval(node.right);
 		} else if (operator === '||') {
-			return astEval(node.left, scope) || astEval(node.right);
+			return aval(node.left, scope) || aval(node.right);
 		}
 
 		throw 'LogicalExpression ' + operator + ' not implemented';
 	},
 	ExpressionStatement: function ExpressionStatement(node, scope) {
-		return astEval(node.expression, scope);
+		return aval(node.expression, scope);
 	},
 	MemberExpression: function MemberExpression(node, scope) {
-		return node.computed ? scope[node.object.name][astEval(node.property, scope)] : scope[node.object.name][node.property.name];
+		return node.computed ? scope[node.object.name][aval(node.property, scope)] : scope[node.object.name][node.property.name];
 	},
 	AssignmentExpression: function AssignmentExpression(node, scope) {
 		var operator = node.operator;
 		if (operator === '+=') {
-			scope[node.left.name] += astEval(node.right, scope);
+			scope[node.left.name] += aval(node.right, scope);
 			return scope[node.left.name];
 		} else if (operator === '-=') {
-			scope[node.left.name] -= astEval(node.right, scope);
+			scope[node.left.name] -= aval(node.right, scope);
 			return scope[node.left.name];
 		} else if (operator === '*=') {
-			scope[node.left.name] *= astEval(node.right, scope);
+			scope[node.left.name] *= aval(node.right, scope);
 			return scope[node.left.name];
 		} else if (operator === '/=') {
-			scope[node.left.name] /= astEval(node.right, scope);
+			scope[node.left.name] /= aval(node.right, scope);
 			return scope[node.left.name];
 		} else if (operator === '=') {
-			scope[node.left.name] = astEval(node.right, scope);
+			scope[node.left.name] = aval(node.right, scope);
 			return;
 		}
 
@@ -49970,18 +49970,18 @@ var visitors = {
 	ForStatement: function ForStatement(node, scope) {
 		var blockScope = Object.assign({}, scope);
 		var index = node.init.declarations[0].id.name;
-		astEval(node.init, blockScope);
+		aval(node.init, blockScope);
 		var limit = 10;
 		console.log('node.test: ', node.test);
-		while (astEval(node.test, blockScope)) {
+		while (aval(node.test, blockScope)) {
 			console.log('blockScope: ', blockScope);
 			console.log('scope: ', blockScope);
 			limit -= 1;
 			if (limit <= 0) {
 				break;
 			}
-			blockScope[index] = astEval(node.update);
-			astEval(node.body);
+			blockScope[index] = aval(node.update);
+			aval(node.body);
 		}
 	},
 	ForOfStatement: function ForOfStatement(node, scope) {
@@ -50007,12 +50007,12 @@ var createClass = function createClass(node, scope) {
 		constructor: function constructor(params, scope) {
 			var hydratedParams = createArguments(node.params, params, scope);
 			var functionScope = Object.assign({}, scope, hydratedParams);
-			return astEval(body, functionScope);
+			return aval(body, functionScope);
 		}
 	};
 };
 
-function astEval(node) {
+function aval(node) {
 	var scope = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
 	var type = node.type;
