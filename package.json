@@ -8,7 +8,9 @@
 		"build": "webpack",
 		"watch": "webpack --watch",
 		"test":
-			"mocha --reporter progress --compilers js:babel-core/register --recursive 'lib/**/*.test.js'"
+			"mocha --reporter progress --compilers js:babel-core/register --recursive 'lib/**/*.test.js'",
+		"inspect":
+			"mocha --inspect --reporter progress --compilers js:babel-core/register --recursive 'lib/**/*.test.js'"
 	},
 	"keywords": ["react", "instant-feedback"],
 	"repository": "https://github.com/germtb/atom-react-playground",

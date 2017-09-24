@@ -17,6 +17,7 @@
     }
   },
   "rules": {
+    "no-useless-escape": 0,
     "no-dupe-args": 2,
     "no-dupe-keys": 2,
     "no-empty": 2,
