@@ -1,7 +1,7 @@
 const path = require('path')
 
 module.exports = {
-	entry: './lib/react-playground.js',
+	entry: './lib/js-playground.js',
 	target: 'atom',
 	devtool: 'source-map',
 	output: {

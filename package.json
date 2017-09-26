@@ -1,22 +1,19 @@
 {
-	"name": "react-playground",
-	"main": "./lib/react-playground",
-	"version": "0.1.6",
-	"activationEvents": [
-		"react-playground:toggle"
-	],
+	"name": "js-playground",
+	"main": "./lib/js-playground",
+	"version": "0.1.0",
+	"activationEvents": ["js-playground:toggle"],
 	"description": "Play in react",
 	"scripts": {
 		"build": "webpack",
 		"watch": "webpack --watch",
-		"test": "mocha -w './testHelper.js' --reporter progress --compilers js:babel-core/register --recursive 'lib/**/*.test.js'",
-		"inspect": "mocha -w './testHelper.js' --inspect --reporter progress --compilers js:babel-core/register --recursive 'lib/**/*.test.js'"
+		"test":
+			"mocha -w './testHelper.js' --reporter progress --compilers js:babel-core/register --recursive 'lib/**/*.test.js'",
+		"inspect":
+			"mocha -w './testHelper.js' --inspect --reporter progress --compilers js:babel-core/register --recursive 'lib/**/*.test.js'"
 	},
-	"keywords": [
-		"react",
-		"instant-feedback"
-	],
-	"repository": "https://github.com/germtb/atom-react-playground",
+	"keywords": ["react", "instant-feedback"],
+	"repository": "https://github.com/germtb/atom-js-playground",
 	"license": "MIT",
 	"engines": {
 		"atom": ">=1.0.0 <2.0.0"
