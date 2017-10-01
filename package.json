@@ -2,19 +2,14 @@
 	"name": "js-playground",
 	"main": "./lib/js-playground",
 	"version": "0.1.0",
-	"activationEvents": [
-		"js-playground:toggle"
-	],
+	"activationEvents": ["js-playground:toggle"],
 	"description": "Play in react",
 	"scripts": {
 		"build": "webpack",
 		"watch": "webpack --watch",
 		"test": "jest"
 	},
-	"keywords": [
-		"react",
-		"instant-feedback"
-	],
+	"keywords": ["react", "instant-feedback"],
 	"repository": "https://github.com/germtb/atom-js-playground",
 	"license": "MIT",
 	"engines": {
