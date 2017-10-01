@@ -47,14 +47,11 @@
     "react/jsx-uses-react": 2,
     "react/jsx-uses-vars": 2,
     "react/react-in-jsx-scope": 2,
-    "mocha/no-exclusive-tests": "error",
-    "mocha/no-skipped-tests": "error",
-    "mocha/no-pending-tests": "error"
   },
   "env": {
+    "jest/globals": true,
     "node": true,
     "browser": true,
-    "mocha": true,
     "es6": true
   },
   "globals": {
@@ -62,6 +59,6 @@
   },
   "plugins": [
     "react",
-    "mocha"
+    "jest"
   ]
 }
