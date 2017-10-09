@@ -9,6 +9,10 @@
 		"watch": "webpack --watch",
 		"test": "jest"
 	},
+	"jest": {
+		"setupFiles": ["./test_helper"],
+		"setupTestFrameworkScriptFile": "./test_setup.js"
+	},
 	"keywords": ["react", "instant-feedback"],
 	"repository": "https://github.com/germtb/atom-js-playground",
 	"license": "MIT",
